@@ -1,0 +1,75 @@
+[{
+  "_id": {
+    "$oid": "6852f3b9a3304fee44f46105"
+  },
+  "nombre": "Juan Pérez",
+  "edad": 27,
+  "ciudad": "Medellín",
+  "generos_favoritos": [
+    "Rock",
+    "Indie"
+  ],
+  "boletos_comprados": [
+    {
+      "escenario": "Escenario Principal",
+      "dia": "2025-06-18"
+    },
+    {
+      "escenario": "Escenario Principal",
+      "dia": "2025-06-22"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6852f3b9a3304fee44f46106"
+  },
+  "nombre": "María Gómez",
+  "edad": 34,
+  "ciudad": "Bogotá",
+  "generos_favoritos": [
+    "Electro Tropical"
+  ],
+  "boletos_comprados": [
+    {
+      "escenario": "Escenario Alterno",
+      "dia": "2025-06-19"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6852f3b9a3304fee44f46107"
+  },
+  "nombre": "Carlos Martínez",
+  "edad": 22,
+  "ciudad": "Cali",
+  "generos_favoritos": [
+    "Fusión",
+    "Hip Hop"
+  ],
+  "boletos_comprados": [
+    {
+      "escenario": "Tarima Caribe",
+      "dia": "2025-06-20"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6852f3b9a3304fee44f46108"
+  },
+  "nombre": "Luisa Quintero",
+  "edad": 29,
+  "ciudad": "Barranquilla",
+  "generos_favoritos": [
+    "Pop Fusión",
+    "Rock"
+  ],
+  "boletos_comprados": [
+    {
+      "escenario": "Escenario Principal",
+      "dia": "2025-06-22"
+    }
+  ]
+}]

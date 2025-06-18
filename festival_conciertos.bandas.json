@@ -1,0 +1,65 @@
+[{
+  "_id": {
+    "$oid": "6852f37aa3304fee44f460f8"
+  },
+  "nombre": "Aterciopelados",
+  "genero": "Rock",
+  "pais_origen": "Colombia",
+  "miembros": [
+    "Andrea Echeverri",
+    "Héctor Buitrago"
+  ],
+  "activa": true
+},
+{
+  "_id": {
+    "$oid": "6852f37aa3304fee44f460f9"
+  },
+  "nombre": "Bomba Estéreo",
+  "genero": "Electro Tropical",
+  "pais_origen": "Colombia",
+  "miembros": [
+    "Li Saumet"
+  ],
+  "activa": true
+},
+{
+  "_id": {
+    "$oid": "6852f37aa3304fee44f460fa"
+  },
+  "nombre": "Systema Solar",
+  "genero": "Fusión",
+  "pais_origen": "Colombia",
+  "miembros": [
+    "DJ Corpas",
+    "John Pri"
+  ],
+  "activa": false
+},
+{
+  "_id": {
+    "$oid": "6852f37aa3304fee44f460fb"
+  },
+  "nombre": "ChocQuibTown",
+  "genero": "Hip Hop",
+  "pais_origen": "Colombia",
+  "miembros": [
+    "Goyo",
+    "Tostao",
+    "Slow Mike"
+  ],
+  "activa": true
+},
+{
+  "_id": {
+    "$oid": "6852f37aa3304fee44f460fc"
+  },
+  "nombre": "Monsieur Periné",
+  "genero": "Pop Fusión",
+  "pais_origen": "Colombia",
+  "miembros": [
+    "Catalina García",
+    "Santiago Prieto"
+  ],
+  "activa": true
+}]

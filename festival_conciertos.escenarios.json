@@ -1,0 +1,27 @@
+[{
+  "_id": {
+    "$oid": "6852f390a3304fee44f460fd"
+  },
+  "nombre": "Escenario Principal",
+  "ubicacion": "Parque Simón Bolívar",
+  "capacidad": 5000,
+  "ciudad": "Bogotá"
+},
+{
+  "_id": {
+    "$oid": "6852f390a3304fee44f460fe"
+  },
+  "nombre": "Escenario Alterno",
+  "ubicacion": "Cancha Panamericana",
+  "capacidad": 2500,
+  "ciudad": "Cali"
+},
+{
+  "_id": {
+    "$oid": "6852f390a3304fee44f460ff"
+  },
+  "nombre": "Tarima Caribe",
+  "ubicacion": "Malecón del Río",
+  "capacidad": 3000,
+  "ciudad": "Barranquilla"
+}]

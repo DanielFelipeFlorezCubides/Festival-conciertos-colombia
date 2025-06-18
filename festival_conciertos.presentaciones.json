@@ -1,0 +1,60 @@
+[{
+  "_id": {
+    "$oid": "6852f3a4a3304fee44f46100"
+  },
+  "banda": "Aterciopelados",
+  "escenario": "Escenario Principal",
+  "hora": {
+    "$date": "2025-06-18T20:00:00.000Z"
+  },
+  "duracion_minutos": 90,
+  "asistencia_estimadada": 4500
+},
+{
+  "_id": {
+    "$oid": "6852f3a4a3304fee44f46101"
+  },
+  "banda": "Bomba Estéreo",
+  "escenario": "Escenario Alterno",
+  "hora": {
+    "$date": "2025-06-19T22:00:00.000Z"
+  },
+  "duracion_minutos": 75,
+  "asistencia_estimadada": 2300
+},
+{
+  "_id": {
+    "$oid": "6852f3a4a3304fee44f46102"
+  },
+  "banda": "Systema Solar",
+  "escenario": "Tarima Caribe",
+  "hora": {
+    "$date": "2025-06-20T21:00:00.000Z"
+  },
+  "duracion_minutos": 80,
+  "asistencia_estimadada": 2800
+},
+{
+  "_id": {
+    "$oid": "6852f3a4a3304fee44f46103"
+  },
+  "banda": "ChocQuibTown",
+  "escenario": "Tarima Caribe",
+  "hora": {
+    "$date": "2025-06-21T20:30:00.000Z"
+  },
+  "duracion_minutos": 70,
+  "asistencia_estimadada": 3000
+},
+{
+  "_id": {
+    "$oid": "6852f3a4a3304fee44f46104"
+  },
+  "banda": "Monsieur Periné",
+  "escenario": "Escenario Principal",
+  "hora": {
+    "$date": "2025-06-22T19:00:00.000Z"
+  },
+  "duracion_minutos": 85,
+  "asistencia_estimadada": 4200
+}]
