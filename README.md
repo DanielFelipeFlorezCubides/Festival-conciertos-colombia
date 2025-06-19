@@ -1,23 +1,120 @@
-# 🎤 Festival de Conciertos en Colombia
+# Festival de Conciertos en Colombia - MongoDB
 
-## Requerimientos
+## 👥 Integrantes
+- Daniel Florez Cubides
+- Mateo Paternina Mercado
 
-Realiza y documenta en el repositorio las siguientes tareas:
+## 📋 Descripción del Proyecto
+Este proyecto implementa una base de datos MongoDB para gestionar un festival de conciertos en Colombia, incluyendo información sobre bandas, escenarios, presentaciones y asistentes.
 
----
+## 🗄️ Estructura de la Base de Datos
 
-### **Consultas**
+### Colecciones:
+- **bandas**: Información de las bandas participantes
+- **escenarios**: Detalles de los escenarios del festival
+- **presentaciones**: Programación de conciertos
+- **asistentes**: Información de los asistentes y sus boletos
 
-1. **Expresiones Regulares**
-    - Buscar bandas cuyo nombre **empiece por la letra “A”**.
-    - Buscar asistentes cuyo **nombre contenga "Gómez"**.
-2. **Operadores de Arreglos**
-    - Buscar asistentes que tengan `"Rock"` dentro de su campo `generos_favoritos`.
-3. **Aggregation Framework**
-    - Agrupar presentaciones por `escenario` y contar cuántas presentaciones hay por cada uno.
-    - Calcular el **promedio de duración** de las presentaciones.
+## 🔍 Consultas Implementadas
 
----
+### 1. Expresiones Regulares
+
+#### Bandas que empiecen por "A"
+```javascript
+db.bandas.find({ nombre: {$regex: /^A/} });
+```
+**Resultado**: Encuentra "Aterciopelados"
+
+![Expresion regular A](image.png)
+
+#### Asistentes con "Gómez" en el nombre
+```javascript
+db.asistentes.find({ nombre: {$regex: /Gómez/} });
+```
+**Resultado**: Encuentra "María Gómez"
+
+![Expresion regular Gómez](image-1.png)
+
+### 2. Operadores de Arreglos
+
+#### Asistentes que les gusta el Rock
+```javascript
+db.asistentes.find({ generos_favoritos: {$in: ["Rock"] } });
+```
+**Resultado**: Encuentra "Juan Pérez" y "Luisa Quintero"
+
+![Operador en arreglos](image-2.png)
+
+### 3. Aggregation Framework
+
+#### Presentaciones por escenario
+```javascript
+db.presentaciones.aggregate([
+  {
+    $group: {
+      _id: "$escenario",
+      total_presentaciones: { $sum: 1 },
+      bandas: { $push: "$banda" }
+    }
+  }
+]);
+```
+**Resultado**:
+- Escenario Principal: 2 presentaciones
+- Tarima Caribe: 2 presentaciones  
+- Escenario Alterno: 1 presentación
+
+![Presentaciones imagen](image-3.png)
+
+#### Promedio de duración
+```javascript
+db.presentaciones.aggregate([
+  {
+    $group: {
+      _id: null,
+      promedio_duracion: { $avg: "$duracion_minutos" }
+    }
+  }
+]);
+```
+**Resultado**: 80 minutos promedio
+
+![Promedio imagen](image-4.png)
+
+## 🔧 Funciones del Sistema
+
+### escenariosPorCiudad(ciudad)
+Función que devuelve todos los escenarios en una ciudad específica.
+
+```javascript
+db.system.js.insertOne({
+  _id: "escenariosPorCiudad",
+  value: new Code("function(c) { return db.escenarios.find({ ciudad: c }); }")
+});
+
+const f1 = db.system.js.findOne({_id: "escenariosPorCiudad"});
+
+const escenariosPorCiudad = new Function('return ' + f1.value.code)();
+
+escenariosPorCiudad("Cali").forEach(printjson);
+``` 
+
+![Funcion javascript](image-5.png)
+
+
+## 📈 Estadísticas del Festival
+- **Total de bandas**: 5
+- **Bandas activas**: 4
+- **Total de escenarios**: 3
+- **Ciudades participantes**: 3 (Bogotá, Cali, Barranquilla)
+- **Asistencia estimada total**: 16,800 personas
+- **Duración total del festival**: 400 minutos
+
+## 🎯 Características Adicionales
+- Transacciones para operaciones críticas
+- Consultas optimizadas con índices
+- Funciones reutilizables para análisis
+- Agregaciones complejas para estadísticas
 
 ### **Funciones en system.js**
 
