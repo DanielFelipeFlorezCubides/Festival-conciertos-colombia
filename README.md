@@ -122,88 +122,99 @@ escenariosPorCiudad("Cali").forEach(printjson);
 2. Crear una función llamada `bandasPorGenero(genero)` que devuelva todas las bandas activas de ese género :
 
 - Función bandasPorGenero(genero)   
-    ```js
-        function bandasPorGenero(genero) {
-        return db.bandas.find({ genero: genero, activa: true }).toArray();
-        }
-    ```
+```js
+  db.system.js.save({
+  _id: "bandasPorGenero",
+  value: function(genero) {
+    return db.bandas.find({ genero: genero, activa: true }).toArray();
+  }
+  });
+
+  // Para llamar esta función luego:
+  db.loadServerScripts();
+  bandasPorGenero("Rock");
+
+```
 ### **Transacciones (requiere replica set)**
 
 1. Simular compra de un boleto:
     - Insertar nuevo boleto en `boletos_comprados` de un asistente.
     - Disminuir en 1 la capacidad del escenario correspondiente.
 ```js
+// Requiere usar sesión para transacciones
 const session = db.getMongo().startSession();
-session.startTransaction();
 
 try {
-  const boletosCollection = session.getDatabase("festival_conciertos").asistentes;
-  const escenariosCollection = session.getDatabase("festival_conciertos").escenarios;
+  session.startTransaction();
 
-  // Insertar boleto
-  boletosCollection.updateOne(
-    { _id: ObjectId("ASISTENTE_ID") },
+  // 1. Insertar boleto en el asistente
+  db.asistentes.updateOne(
+    { nombre: "Juan Pérez" },
     {
       $push: {
         boletos_comprados: {
-          escenario: "Escenario Principal",
-          dia: "2025-06-23"
+          escenario: "Tarima Caribe",
+          dia: "2025-06-21"
         }
       }
-    }
+    },
+    { session }
   );
 
-  // Disminuir capacidad
-  escenariosCollection.updateOne(
-    { nombre: "Escenario Principal" },
-    { $inc: { capacidad: -1 } }
+  // 2. Disminuir la capacidad del escenario
+  db.escenarios.updateOne(
+    { nombre: "Tarima Caribe" },
+    { $inc: { capacidad: -1 } },
+    { session }
   );
 
   session.commitTransaction();
-  session.endSession();
-  } catch (error) {
+  print("Compra realizada con éxito");
+} catch (e) {
+  print("Error, haciendo rollback: ", e);
   session.abortTransaction();
-  session.endSession();
-  throw error;
 }
+session.endSession();
+
 ```
 2. Reversar la compra:
     - Eliminar el boleto insertado anteriormente.
     - Incrementar la capacidad del escenario.
 ```   js 
 const session = db.getMongo().startSession();
-session.startTransaction();
 
 try {
-  const boletosCollection = session.getDatabase("festival_conciertos").asistentes;
-  const escenariosCollection = session.getDatabase("festival_conciertos").escenarios;
+  session.startTransaction();
 
-  // Eliminar boleto
-  boletosCollection.updateOne(
-    { _id: ObjectId("ASISTENTE_ID") },
+  // 1. Eliminar el boleto
+  db.asistentes.updateOne(
+    { nombre: "Juan Pérez" },
     {
       $pull: {
         boletos_comprados: {
-          escenario: "Escenario Principal",
-          dia: "2025-06-23"
+          escenario: "Tarima Caribe",
+          dia: "2025-06-21"
         }
       }
-    }
+    },
+    { session }
   );
 
-  // Aumentar capacidad
-  escenariosCollection.updateOne(
-    { nombre: "Escenario Principal" },
-    { $inc: { capacidad: 1 } }
+  // 2. Aumentar capacidad del escenario
+  db.escenarios.updateOne(
+    { nombre: "Tarima Caribe" },
+    { $inc: { capacidad: 1 } },
+    { session }
   );
 
   session.commitTransaction();
-  session.endSession();
-} catch (error) {
+  print("Compra revertida con éxito");
+} catch (e) {
+  print("Error al revertir compra: ", e);
   session.abortTransaction();
-  session.endSession();
-  throw error;
 }
+session.endSession();
+
 ```
 ---
 
@@ -217,22 +228,31 @@ try {
 
 1 Índice en bandas.nombre y búsqueda por nombre
 ```js
+// Crear índice
 db.bandas.createIndex({ nombre: 1 });
 
+// Consulta
 db.bandas.find({ nombre: "Aterciopelados" });
+
 ```
 2 Índice en presentaciones.escenario y contar presentaciones
 ```js
 
+// Crear índice
 db.presentaciones.createIndex({ escenario: 1 });
 
-db.presentaciones.countDocuments({ escenario: "Escenario Principal" });
+// Consulta
+db.presentaciones.countDocuments({ escenario: "Tarima Caribe" });
+
 ```
 3 Índice compuesto en asistentes.ciudad y edad, y consulta
 ```js
+// Crear índice compuesto
 db.asistentes.createIndex({ ciudad: 1, edad: 1 });
 
+// Consulta
 db.asistentes.find({ ciudad: "Bogotá", edad: { $lt: 30 } });
+
 ```
 ---
 
